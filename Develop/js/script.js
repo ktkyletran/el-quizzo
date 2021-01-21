@@ -1,70 +1,59 @@
 var questionEl = document.querySelector('#question');
-var choicesEl = document.querySelectorAll('.choices');
 var timerEl = document.querySelector('#timer');
 
 var score;
 var timer;
 var timerCount;
-var currentQuestion;
-var shuffledQuestions;
-var gamePlay = true;
+var userAnswer;
 
-var quizQuestions = [
-    {
-        question: "Is Java short for JavaScript?",
-        answer1: "yes",
-        answer2: "no",
-        answer3: "maybe",
-        answer4: "I dont know",
-        correctAnswer: 2,
-    },
-    {
-        question: "Who invented JavaScript?",
-        answer1: "Håkon Wium Lie",
-        answer2: "Bill Gates",
-        answer3: "Tim Berners-Lee",
-        answer4: "Brendan Eich",
-        correctAnswer: 4,
-    },
-    {
-        question: "What is JavaScript used for?",
-        answer1: "Making interactive webpages",
-        answer2: "Cooking a 5 star meal",
-        answer3: "Prepares your body for exercise",
-        answer4: "Calls the police",
-        correctAnswer: 1,
-    },
-    {
-        question: "Which JavaScript data type does NOT belong?",
-        answer1: "String",
-        answer2: "Boolean",
-        answer3: "Yarn",
-        answer4: "Object",
-        correctAnswer: 3,
-    },
-    {
-        question: "What does NAN stand for?",
-        answer1: "Never ate nachos",
-        answer2: "Need a number",
-        answer3: "Not again Nicholas",
-        answer4: "Not a number",
-        correctAnswer: 4,
-    },
+var quizQuestions = ["Is Java short for JavaScript?", "Who invented JavaScript?", "What is JavaScript used for?", "Which JavaScript data type does NOT belong?", "What does NAN stand for?"];
+var quizAnswers = [
+    ["yes", "no", "maybe", "I don't know"], 
+    ["Håkon Wium Lie", "Bill Gates", "Tim Berners-Lee", "Brendan Eich"], 
+    ["Making interactive webpages", "Cooking a 5 star meal", "Prepares your body for exercise", "Calls the police"], 
+    ["String", "Boolean", "Yarn", "Object"], 
+    ["Never ate nachos", "Need a number", "Not again Nichola", "Not a number"]
 ];
+var correctAnswers = ["no", "Brendan Eich", "Making interactive webpages", "Yarn", "Not a number"];
 
 // Game Functions
 function startGame() {
     score = 0;
     timerCount = 100;
+    startTimer();
     nextQuestion();
+    nextAnswers();
 };
 
 function nextQuestion() {
-    for (var i = 0; i < quizQuestions.length; i++) {
-    currentQuestion = quizQuestions[i].question;
-    questionEl.textContent = currentQuestion;
+    var i = 0;
+    var currentQuestion = quizQuestions[i];
+    questionEl.innerHTML = currentQuestion;
+
+    if (userAnswer === correctAnswers) {
+        i++;
+        score++;
+    } else {
+        timerCount - 10;
     }
 };
+
+function nextAnswers() {
+    var j = 0;
+
+    if (userAnswer === correctAnswers) {
+        j++;
+    }
+
+    for (var k = 0; k < quizAnswers[j].length; k++) {
+        var currentAnswers = document.getElementById("buttons");
+            quizAnswers.forEach(function() {
+                var button = document.createElement("button");
+                button.innerHTML = quizAnswers[j][k];
+                currentAnswers.appendChild(button);
+            });
+    }
+}
 
 function startTimer() {
     timer = setInterval(function () {
@@ -74,10 +63,7 @@ function startTimer() {
 
 };
 
-function selectAnswer() {
 
-};
-
-// Event Listener
 startGame();
-startTimer();
+
+
