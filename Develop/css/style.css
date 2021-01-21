@@ -37,17 +37,3 @@ h1 {
     color: #fff;
     font-size: 30px;
 }
-
-.btn:hover {
-    background-color: paleturquoise;
-}
-
-.btn.correct {
-    background-color: green;
-    color: white;
-}
-
-.btn.wrong {
-    background-color: red;
-    color: white;
-}
